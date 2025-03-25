@@ -9,10 +9,14 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.options import Options
+
 
 class TestSmokeTest():
   def setup_method(self, method):
-    self.driver = webdriver.Firefox()
+    options = Options()
+    options.add_argument("--headless=new")
+    self.driver = webdriver.Chrome(options=options)
     self.vars = {}
   
   def teardown_method(self, method):
@@ -20,6 +24,7 @@ class TestSmokeTest():
   
   def test_1(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
+    self.driver.set_window_size(1151, 1040)
     elements = self.driver.find_elements(By.CSS_SELECTOR, ".header-logo img")
     assert len(elements) > 0
     assert self.driver.find_element(By.CSS_SELECTOR, ".header-title > h1").text == "Teton Idaho"
@@ -28,6 +33,7 @@ class TestSmokeTest():
   
   def test_2(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
+    self.driver.set_window_size(1151, 1040)
     elements = self.driver.find_elements(By.CSS_SELECTOR, "nav")
     assert len(elements) > 0
     elements = self.driver.find_elements(By.CSS_SELECTOR, ".spotlight1 > .centered-image")
@@ -41,6 +47,7 @@ class TestSmokeTest():
   
   def test_3(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
+    self.driver.set_window_size(1151, 1040)
     self.driver.find_element(By.LINK_TEXT, "Directory").click()
     self.driver.find_element(By.ID, "directory-grid").click()
     elements = self.driver.find_elements(By.CSS_SELECTOR, ".gold-member:nth-child(9) > img")
@@ -51,6 +58,7 @@ class TestSmokeTest():
   
   def test_4(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
+    self.driver.set_window_size(1151, 1040)
     self.driver.find_element(By.LINK_TEXT, "Join Us").click()
     elements = self.driver.find_elements(By.NAME, "fname")
     assert len(elements) > 0
@@ -67,6 +75,7 @@ class TestSmokeTest():
   
   def test_5(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
+    self.driver.set_window_size(1151, 1040)
     self.driver.find_element(By.LINK_TEXT, "Admin").click()
     elements = self.driver.find_elements(By.ID, "username")
     assert len(elements) > 0
